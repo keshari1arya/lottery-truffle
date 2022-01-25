@@ -1,0 +1,18 @@
+{
+  "name": "lottery",
+  "version": "1.0.0",
+  "description": "First lottery smart contract",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test"
+  },
+  "author": "",
+  "license": "UNLICENCED",
+  "dependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1"
+  }
+}
