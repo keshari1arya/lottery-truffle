@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import './BuyNowSection.css';
 
 const BuyNowSection = () => (
-  <section class="cta section">
-    <div class="container-sm">
-      <div class="cta-inner section-inner">
-        <div class="cta-header text-center">
-          <h2 class="section-title mt-0">Get it and Switch</h2>
-          <p class="section-paragraph">Lorem ipsum is common placeholder text used to demonstrate the graphic
+  <section className="cta section">
+    <div className="container-sm">
+      <div className="cta-inner section-inner">
+        <div className="cta-header text-center">
+          <h2 className="section-title mt-0">Get it and Switch</h2>
+          <p className="section-paragraph">Lorem ipsum is common placeholder text used to demonstrate the graphic
             elements of a document or visual presentation.</p>
-          <div class="cta-cta">
-            <a class="button button-primary" href="#">Buy it now</a>
+          <div className="cta-cta">
+            <a className="button button-primary" href="#">Buy it now</a>
           </div>
         </div>
       </div>

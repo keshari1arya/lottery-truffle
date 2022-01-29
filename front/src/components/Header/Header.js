@@ -4,14 +4,14 @@ import './Header.css';
 
 function Header() {
   return (
-    <header class="site-header">
-      <div class="container">
-        <div class="site-header-inner">
-          <div class="brand header-brand">
-            <h1 class="m-0">
+    <header className="site-header">
+      <div className="container">
+        <div className="site-header-inner">
+          <div className="brand header-brand">
+            <h1 className="m-0">
               <a href="#">
-                <img class="header-logo-image asset-light" src="dist/images/logo-light.svg" alt="Logo" />
-                <img class="header-logo-image asset-dark" src="dist/images/logo-dark.svg" alt="Logo" />
+                <img className="header-logo-image asset-light" src="dist/images/logo-light.svg" alt="Logo" />
+                <img className="header-logo-image asset-dark" src="dist/images/logo-dark.svg" alt="Logo" />
               </a>
             </h1>
           </div>
@@ -21,8 +21,8 @@ function Header() {
   )
 };
 
-// Header.propTypes = {};
+Header.propTypes = {};
 
-// Header.defaultProps = {};
+Header.defaultProps = {};
 
 export default Header;
