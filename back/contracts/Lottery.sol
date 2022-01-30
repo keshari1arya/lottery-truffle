@@ -31,6 +31,10 @@ contract Lottery {
         players.push(payable(msg.sender));
     }
 
+    function totalPlayed() public view returns (uint256) {
+        return serial - 1;
+    }
+
     function totalPlayer() public view returns (uint256) {
         return players.length;
     }

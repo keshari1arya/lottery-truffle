@@ -1,18 +1,16 @@
-import logo from './logo.svg';
 import React, { useEffect, useState } from "react";
 import './App.css';
-import Lottery from "./contracts/Lottery.json"
-import { ethers } from 'ethers';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import BuyNowSection from './components/BuyNowSection/BuyNowSection';
 import LotteryService from "./services/service";
+import AccountList from './components/AccountList/AccountList';
 
 function App() {
-  const lotteryAddress = "0xB27daA9623FE17AfF846fDD74afaC820B6b65Ab4";
   const [currentAccount, setCurrentAccount] = useState(null);
   const [buttonText, setButtonText] = useState("Connect Wallet");
   const [banalce, setBalance] = useState(0);
+  const [totalSpin, setTotalSpin] = useState(0);
   const eth = window.ethereum;
 
   const checkAccountConnected = () => {
@@ -21,10 +19,10 @@ function App() {
     }
   }
 
-  const connectWalletHandler = () => {
+  const connectWalletHandler = async () => {
     if (eth) {
       try {
-        const accounts = eth.request({ method: "eth_requestAccounts" });
+        const accounts = await eth.request({ method: "eth_requestAccounts" });
         setCurrentAccount(accounts[0]);
         setButtonText("Buy a Ticket");
       } catch (error) {
@@ -38,13 +36,12 @@ function App() {
   }
 
   const purchaseTicket = async () => {
-    if (currentAccount) {
-      setButtonText("Purchase Ticket");
+    if (!currentAccount) {
+      await connectWalletHandler();
     } else {
       try {
-        connectWalletHandler();
-        var transaction = LotteryService.purchaseTicket()
-        getBalance();
+        var transaction = await LotteryService.purchaseTicket()
+        await getBalance();
         console.log(transaction);
       } catch (error) {
         console.error(error);
@@ -53,22 +50,24 @@ function App() {
   }
 
   const spinTheWheel = async () => {
-    if (currentAccount) {
-      setButtonText("Spin the Wheel");
-    } else {
-      try {
-        connectWalletHandler();
-        LotteryService.spinTheWheel();
-        getBalance();
-      } catch (error) {
-        console.error(error);
-      }
+
+    try {
+      connectWalletHandler();
+      await LotteryService.spinTheWheel();
+      await getBalance();
+    } catch (error) {
+      console.error(error);
     }
+  }
+
+  const totalSpinHandler = async () => {
+    setTotalSpin(await LotteryService.totalSpin());
   }
 
   useEffect(() => {
     checkAccountConnected();
     getBalance();
+    totalSpinHandler();
   })
 
   return (
@@ -83,6 +82,9 @@ function App() {
               </h1>
               <p className="hero-paragraph">
                 Balance: {banalce} Wei
+              </p>
+              <p className="hero-paragraph">
+                Spins: {totalSpin}
               </p>
               <div className="hero-cta">
                 <a className="button button-primary" href="#" onClick={purchaseTicket}>
@@ -120,6 +122,7 @@ function App() {
         </div>
       </section>
       <BuyNowSection />
+      <AccountList />
       <Footer />
     </div>
   );
